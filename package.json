@@ -1,0 +1,40 @@
+{
+  "name": "tropy-plugin-iiif",
+  "version": "1.0.0",
+  "description": "Tropy plugin to import IIIF manifests",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tropy/tropy-plugin-iiif.git"
+  },
+  "keywords": [
+    "tropy",
+    "plugin",
+    "iiif",
+    "iiif-manifest"
+  ],
+  "author": "",
+  "license": "AGPL-3.0",
+  "bugs": {
+    "url": "https://github.com/tropy/tropy-plugin-iiif/issues"
+  },
+  "homepage": "https://github.com/tropy/tropy-plugin-iiif#readme",
+  "hooks": {
+    "import": true
+  },
+  "options": [
+    {
+      "field": "template",
+      "label": "Template",
+      "type": "template",
+      "hint": "The template determines how to import the IIIF manifest metadata section"
+    }
+  ],
+  "devDependencies": {
+    "electron": "^16.0.4",
+    "electron-mocha": "^11.0.2"
+  }
+}
