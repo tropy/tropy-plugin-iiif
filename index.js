@@ -9,6 +9,9 @@ class IIIFPlugin {
   }
 
   async import(payload) {
+    // Prompt for file
+    // Parse manifest
+    // Convert
     payload.data = []
   }
 

@@ -4,7 +4,7 @@
   "description": "Tropy plugin to import IIIF manifests",
   "main": "index.js",
   "scripts": {
-    "test": "npm test"
+    "test": "electron-mocha test/**/*_test.js"
   },
   "repository": {
     "type": "git",
@@ -33,8 +33,15 @@
       "hint": "The template determines how to import the IIIF manifest metadata section"
     }
   ],
+  "mocha": {
+    "color": true,
+    "require": [
+      "test/support/fixtures.js"
+    ]
+  },
   "devDependencies": {
     "electron": "^16.0.4",
-    "electron-mocha": "^11.0.2"
+    "electron-mocha": "^11.0.2",
+    "jsonld": "^5.2.0"
   }
 }
