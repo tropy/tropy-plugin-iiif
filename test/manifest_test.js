@@ -1,6 +1,6 @@
 const assert = require('assert')
 const jsonld = require('jsonld')
-const { Manifest } = require('../lib/manifest')
+const { Canvas, Image, Manifest } = require('../lib/manifest')
 
 describe('IIIF Manifest', () => {
 
@@ -42,6 +42,15 @@ describe('IIIF Manifest', () => {
       assert.ok('http://purl.org/dc/elements/1.1/title' in bodleian.props)
       assert.ok('http://purl.org/dc/elements/1.1/rights' in mdz.props)
     })
-  })
 
+    it('have canvases', () => {
+      assert.ok(bodleian.canvases.every(c => c instanceof Canvas))
+      assert.ok(mdz.canvases.every(c => c instanceof Canvas))
+    })
+
+    it('have images', () => {
+      assert.ok(bodleian.images.every(c => c instanceof Image))
+      assert.ok(mdz.images.every(c => c instanceof Image))
+    })
+  })
 })
