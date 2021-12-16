@@ -1,0 +1,68 @@
+{
+  "Creator": "http://purl.org/dc/elements/1.1/creator",
+  "Artist": "http://purl.org/dc/elements/1.1/creator",
+  "Cartographer": "http://purl.org/dc/elements/1.1/creator",
+  "Author": "http://purl.org/dc/elements/1.1/creator",
+
+  "Etcher": "http://purl.org/dc/elements/1.1/contributor",
+  "Other creators": "http://purl.org/dc/elements/1.1/contributor",
+
+  "Title": "http://purl.org/dc/elements/1.1/title",
+  "Incipit": "http://purl.org/dc/elements/1.1/title",
+
+  "Other Titles": "http://purl.org/dc/elements/1.1/alternative",
+
+  "Volume": "http://purl.org/ontology/bibo/volume",
+
+  "By": "http://purl.org/dc/elements/1.1/publisher",
+
+  "Editor": "http://purl.org/ontology/bibo/editor",
+
+  "Sitter": "http://xmlns.com/foaf/0.1/depicted",
+
+  "Shelfmark": "http://id.loc.gov/ontologies/bibframe/shelfmark",
+
+  "Catalogue Identifier": "http://purl.org/dc/elements/1.1/identifier",
+  "Other Identifier": "http://purl.org/dc/elements/1.1/identifier",
+  "Identifier": "http://purl.org/dc/elements/1.1/identifier",
+  "URN": "http://purl.org/dc/elements/1.1/identifier",
+
+  "Performer": "http://purl.org/ontology/bibo/performer",
+
+  "Date Statement": "http://purl.org/dc/elements/1.1/date",
+
+  "Published": "http://purl.org/dc/terms/issued",
+  "Period": "http://purl.org/dc/terms/temporal",
+
+  "Place of Origin": "http://purl.org/dc/terms/spatial",
+
+  "Extent": "http://purl.org/dc/terms/extent",
+
+  "Dimensions": "http://purl.org/dc/terms/format",
+
+  "Language": "http://purl.org/dc/elements/1.1/language",
+
+  "Note": "http://purl.org/dc/elements/1.1/description",
+  "Description": "http://purl.org/dc/elements/1.1/description",
+  "Catalog Description": "http://purl.org/dc/elements/1.1/description",
+
+  "Contents": "http://www.w3.org/1999/02/22-rdf-syntax-ns#value",
+
+  "Collection": "https://tropy.org/v1/tropy#collection",
+  "Provenance": "http://purl.org/dc/terms/provenance",
+
+  "Location": "http://purl.org/dc/terms/source",
+  "Holding Institution": "http://purl.org/dc/terms/source",
+  "Repository": "http://purl.org/dc/terms/source",
+
+
+  "Homepage": "http://purl.org/ontology/bibo/uri",
+
+  "Digital Object Identifier": "http://purl.org/ontology/bibo/doi",
+
+  "Relation": "http://purl.org/dc/terms/relation",
+
+  "Object Type": "http://purl.org/dc/elements/1.1/type",
+
+  "Subject": "http://purl.org/dc/elements/1.1/subject"
+}

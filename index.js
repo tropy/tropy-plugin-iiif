@@ -1,5 +1,6 @@
 const { readFile } = require('fs/promises')
 const { Manifest } = require('./lib/manifest')
+const LABELS = require('./labels.json')
 
 class IIIFPlugin {
   constructor(options, context) {
@@ -38,14 +39,24 @@ class IIIFPlugin {
 
   convert(manifest) {
     let { props, canvases } = manifest
+    let iMap = this.getLabelsToIdMap('item')
+    let pMap = this.getLabelsToIdMap('photo')
 
     return {
       ...props,
+      ...manifest.getMetadataProperties(iMap),
       photo: canvases.flatMap(c => c.images.map(i => ({
         ...c.props,
-        ...i.props
+        ...c.getMetadataProperties(pMap),
+        ...i.props,
+        ...i.getMetadataProperties(pMap)
       })))
     }
+  }
+
+  getLabelsToIdMap() {
+    // TODO create map from template
+    return LABELS
   }
 
   prompt() {
