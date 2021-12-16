@@ -52,5 +52,12 @@ describe('IIIF Manifest', () => {
       assert.ok(bodleian.images.map(i => i instanceof Image))
       assert.ok(mdz.images.every(i => i instanceof Image))
     })
+
+    it('prop values are stripped of html', () => {
+      assert.doesNotMatch(
+        bodleian.props['http://purl.org/dc/elements/1.1/rights'][0]['@value'],
+        /<\//
+      )
+    })
   })
 })
