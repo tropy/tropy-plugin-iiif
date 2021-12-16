@@ -49,8 +49,8 @@ describe('IIIF Manifest', () => {
     })
 
     it('have images', () => {
-      assert.ok(bodleian.images.every(c => c instanceof Image))
-      assert.ok(mdz.images.every(c => c instanceof Image))
+      assert.ok(bodleian.images.map(i => i instanceof Image))
+      assert.ok(mdz.images.every(i => i instanceof Image))
     })
   })
 })
