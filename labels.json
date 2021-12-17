@@ -51,10 +51,9 @@
   "Collection": "https://tropy.org/v1/tropy#collection",
   "Provenance": "http://purl.org/dc/terms/provenance",
 
-  "Location": "http://purl.org/dc/terms/source",
-  "Holding Institution": "http://purl.org/dc/terms/source",
-  "Repository": "http://purl.org/dc/terms/source",
-
+  "Location": "http://purl.org/dc/elements/1.1/source",
+  "Holding Institution": "http://purl.org/dc/elements/1.1/source",
+  "Repository": "http://purl.org/dc/elements/1.1/source",
 
   "Homepage": "http://purl.org/ontology/bibo/uri",
 
