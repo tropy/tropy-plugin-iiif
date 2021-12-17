@@ -39,24 +39,40 @@ class IIIFPlugin {
 
   convert(manifest) {
     let { props, canvases } = manifest
-    let iMap = this.getLabelsToIdMap('item')
-    let pMap = this.getLabelsToIdMap('photo')
+    let { itemTemplate, photoTemplate } = this.options
+
+    let iMap = this.mapLabelsToIds(this.loadTemplate(itemTemplate))
+    let pMap = this.mapLabelsToIds(this.loadTemplate(photoTemplate))
 
     return {
       ...props,
       ...manifest.getMetadataProperties(iMap),
+      template: itemTemplate || undefined,
       photo: canvases.flatMap(c => c.images.map(i => ({
         ...c.props,
         ...c.getMetadataProperties(pMap),
         ...i.props,
-        ...i.getMetadataProperties(pMap)
+        ...i.getMetadataProperties(pMap),
+        template: photoTemplate || undefined
       })))
     }
   }
 
-  getLabelsToIdMap() {
-    // TODO create map from template
-    return LABELS
+  mapLabelsToIds(template) {
+    if (!template)
+      return LABELS
+
+    let map = {}
+
+    for (let { label, property } of template.fields) {
+      if (label) map[label] = property
+    }
+
+    return map
+  }
+
+  loadTemplate(id) {
+    return this.context.window.store?.getState().ontology.template[id]
   }
 
   prompt() {
@@ -71,7 +87,8 @@ class IIIFPlugin {
 
 
   static defaults = {
-    template: ''
+    itemTemplate: '',
+    photoTemplate: '',
   }
 }
 

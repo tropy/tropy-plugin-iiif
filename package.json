@@ -27,8 +27,14 @@
   },
   "options": [
     {
-      "field": "template",
-      "label": "Template",
+      "field": "itemTemplate",
+      "label": "Item template",
+      "type": "template",
+      "hint": "The template determines how to import the IIIF manifest metadata section"
+    },
+    {
+      "field": "photoTemplate",
+      "label": "Photo template",
       "type": "template",
       "hint": "The template determines how to import the IIIF manifest metadata section"
     }
