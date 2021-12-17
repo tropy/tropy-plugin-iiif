@@ -26,6 +26,7 @@
   "Other Identifier": "http://purl.org/dc/elements/1.1/identifier",
   "Identifier": "http://purl.org/dc/elements/1.1/identifier",
   "URN": "http://purl.org/dc/elements/1.1/identifier",
+  "Available Online": "http://purl.org/dc/elements/1.1/identifier",
 
   "Performer": "http://purl.org/ontology/bibo/performer",
 
@@ -61,6 +62,7 @@
 
   "Relation": "http://purl.org/dc/terms/relation",
 
+  "Type": "http://purl.org/dc/elements/1.1/type",
   "Object Type": "http://purl.org/dc/elements/1.1/type",
 
   "Subject": "http://purl.org/dc/elements/1.1/subject"
