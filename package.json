@@ -29,12 +29,14 @@
     {
       "field": "itemTemplate",
       "label": "Item template",
+      "placeholder": "Select Template (Optional)",
       "type": "template",
       "hint": "The template determines how to import the IIIF manifest metadata section"
     },
     {
       "field": "photoTemplate",
       "label": "Photo template",
+      "placeholder": "Select Template (Optional)",
       "type": "template",
       "hint": "The template determines how to import the IIIF manifest metadata section"
     }
