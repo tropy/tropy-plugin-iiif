@@ -11,7 +11,7 @@ To create an import template with your own custom mappings, use Tropy’s templa
 
 ## Plugin configuration
 To configure the plugin, click its *Settings* button in *Preferences > Plugins*:
-  - Choose a plugin *Name* that will show up in the *File > import* menu (e.g. *IIIF Manifest*).
+  - Choose a plugin *Name* that will show up in the *File > Import* menu (e.g. *IIIF Manifest*).
   - Use the *+* icon at the far right to create new plugin instances (so you can have multiple configurations in parallel).
   - The *Item template* selector lets you pick a custom import template.
 
