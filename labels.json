@@ -6,6 +6,7 @@
 
   "Etcher": "http://purl.org/dc/elements/1.1/contributor",
   "Other creators": "http://purl.org/dc/elements/1.1/contributor",
+  "People": "http://purl.org/dc/elements/1.1/contributor",
 
   "Title": "http://purl.org/dc/elements/1.1/title",
   "Incipit": "http://purl.org/dc/elements/1.1/title",
@@ -27,9 +28,11 @@
   "Identifier": "http://purl.org/dc/elements/1.1/identifier",
   "URN": "http://purl.org/dc/elements/1.1/identifier",
   "Available Online": "http://purl.org/dc/elements/1.1/identifier",
+  "Object Number": "http://purl.org/dc/elements/1.1/identifier",
 
   "Performer": "http://purl.org/ontology/bibo/performer",
 
+  "Date": "http://purl.org/dc/elements/1.1/date",
   "Date Statement": "http://purl.org/dc/elements/1.1/date",
 
   "Published": "http://purl.org/dc/terms/issued",
@@ -55,6 +58,7 @@
   "Location": "http://purl.org/dc/elements/1.1/source",
   "Holding Institution": "http://purl.org/dc/elements/1.1/source",
   "Repository": "http://purl.org/dc/elements/1.1/source",
+  "Credit Line": "http://purl.org/dc/elements/1.1/source",
 
   "Homepage": "http://purl.org/ontology/bibo/uri",
 
@@ -64,6 +68,9 @@
 
   "Type": "http://purl.org/dc/elements/1.1/type",
   "Object Type": "http://purl.org/dc/elements/1.1/type",
+  "Classification": "http://purl.org/dc/elements/1.1/type",
 
-  "Subject": "http://purl.org/dc/elements/1.1/subject"
+  "Subject": "http://purl.org/dc/elements/1.1/subject",
+
+  "Medium": "http://purl.org/dc/terms/medium"
 }
