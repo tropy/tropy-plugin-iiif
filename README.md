@@ -1,7 +1,7 @@
 # tropy-plugin-iiif
 
 ## Installation
-[Download the latest release](https://github.com/tropy/tropy-plugin-ifff/releases/latest). In Tropy, navigate to *Preferences… > Plugins* and click *Install Plugin* to select the downloaded ZIP file.
+[Download the latest release](https://github.com/tropy/tropy-plugin-iiif/releases/latest). In Tropy, navigate to *Preferences… > Plugins* and click *Install Plugin* to select the downloaded ZIP file.
 
 ## Usage
 Download a IIIF manifest und select *File > Import > tropy-plugin-iiif* to start the import. The plugin tries to map the manifest’s metadata to standard metadata properties. In case the result is not satisfactory, create a custom import template.
