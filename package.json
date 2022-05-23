@@ -2,6 +2,7 @@
   "name": "tropy-plugin-iiif",
   "version": "1.0.0",
   "description": "Tropy plugin to import IIIF manifests",
+  "icon": "icon.svg",
   "main": "index.js",
   "scripts": {
     "test": "electron-mocha test/**/*_test.js"

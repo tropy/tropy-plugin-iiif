@@ -1,4 +1,6 @@
-# tropy-plugin-iiif
+<p align="center"><img src="icon.svg"></p>
+
+<h1 align="center">tropy-plugin-iiif</h1>
 
 ## Installation
 [Download the latest release](https://github.com/tropy/tropy-plugin-iiif/releases/latest). In Tropy, navigate to *Preferences… > Plugins* and click *Install Plugin* to select the downloaded ZIP file.
