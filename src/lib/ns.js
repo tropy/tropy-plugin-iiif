@@ -4,11 +4,12 @@ const pv2 = require('../contexts/presentation.v2.json')
 const pv3 = require('../contexts/presentation.v3.json')
 const search = require('../contexts/search.v1.json')
 
-const ns = (prefix) =>
-  (name = '') => `${prefix}${name}`
+const ns =
+  (prefix) =>
+  (name = '') =>
+    `${prefix}${name}`
 
-const alias = (ctx, name) =>
-  ns((ctx['@context'][0] || ctx['@context'])[name])
+const alias = (ctx, name) => ns((ctx['@context'][0] || ctx['@context'])[name])
 
 module.exports = {
   ns,
@@ -27,6 +28,6 @@ module.exports = {
     'http://iiif.io/api/presentation/2/context.json': pv2,
     'http://iiif.io/api/presentation/3/context.json': pv3,
     'http://iiif.io/api/search/0/context.json': search,
-    'http://iiif.io/api/search/1/context.json': search,
+    'http://iiif.io/api/search/1/context.json': search
   }
 }

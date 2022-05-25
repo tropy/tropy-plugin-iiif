@@ -1,0 +1,6 @@
+color: true
+recursive: true
+reporter: dot
+renderer: true
+require:
+  - test/support/fixtures.js

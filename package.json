@@ -1,11 +1,15 @@
 {
   "name": "tropy-plugin-iiif",
+  "productName": "IIIF",
   "version": "1.0.0",
-  "description": "Tropy plugin to import IIIF manifests",
+  "description": "Import IIIF manifests",
   "icon": "icon.svg",
   "main": "index.js",
   "scripts": {
-    "test": "electron-mocha test/**/*_test.js"
+    "test": "electron-mocha --renderer test",
+    "lint": "eslint --color src test",
+    "build": "rollup -c rollup.config.js",
+    "watch": "rollup -c -w rollup.config.js"
   },
   "repository": {
     "type": "git",
@@ -42,16 +46,15 @@
       "hint": "The template determines how to import the IIIF manifest metadata section"
     }
   ],
-  "mocha": {
-    "color": true,
-    "renderer": true,
-    "require": [
-      "test/support/fixtures.js"
-    ]
-  },
   "devDependencies": {
-    "electron": "^16.0.4",
+    "@rollup/plugin-commonjs": "^22.0.0",
+    "@rollup/plugin-json": "^4.1.0",
+    "@rollup/plugin-node-resolve": "^13.3.0",
+    "electron": "^18.2.2",
     "electron-mocha": "^11.0.2",
-    "jsonld": "^5.2.0"
+    "eslint": "^8.14.0",
+    "jsonld": "^5.2.0",
+    "rollup": "^2.72.1",
+    "rollup-plugin-license": "^2.7.0"
   }
 }
