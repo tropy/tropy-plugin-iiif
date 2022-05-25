@@ -28,11 +28,13 @@ class IIIFPlugin {
         console.log('x')
 
         payload.data.push(this.convert(manifest))
-
       } catch (e) {
-        this.context.logger.warn({
-          stack: e.stack
-        }, `failed to import IIIF manifest ${file}`)
+        this.context.logger.warn(
+          {
+            stack: e.stack
+          },
+          `failed to import IIIF manifest ${file}`
+        )
       }
     }
   }
@@ -48,13 +50,15 @@ class IIIFPlugin {
       ...props,
       ...manifest.getMetadataProperties(iMap),
       template: itemTemplate || undefined,
-      photo: canvases.flatMap(c => c.images.map(i => ({
-        ...c.props,
-        ...c.getMetadataProperties(pMap),
-        ...i.props,
-        ...i.getMetadataProperties(pMap),
-        template: photoTemplate || undefined
-      })))
+      photo: canvases.flatMap((c) =>
+        c.images.map((i) => ({
+          ...c.props,
+          ...c.getMetadataProperties(pMap),
+          ...i.props,
+          ...i.getMetadataProperties(pMap),
+          template: photoTemplate || undefined
+        }))
+      )
     }
   }
 
@@ -77,18 +81,19 @@ class IIIFPlugin {
 
   prompt() {
     return this.context.dialog.open({
-      filters: [{
-        name: 'IIIF Manifests',
-        extensions: ['json']
-      }],
+      filters: [
+        {
+          name: 'IIIF Manifests',
+          extensions: ['json']
+        }
+      ],
       properties: ['openFile', 'multiSelections']
     })
   }
 
-
   static defaults = {
     itemTemplate: '',
-    photoTemplate: '',
+    photoTemplate: ''
   }
 }
 

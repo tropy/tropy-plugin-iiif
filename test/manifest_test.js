@@ -1,6 +1,6 @@
 const assert = require('assert')
 const jsonld = require('jsonld')
-const { Canvas, Image, Manifest } = require('../lib/manifest')
+const { Canvas, Image, Manifest } = require('../src/lib/manifest')
 
 describe('IIIF Manifest', () => {
 
@@ -13,7 +13,7 @@ describe('IIIF Manifest', () => {
     })
 
     it('ignores missing input', async () => {
-      await assert.equal(0, (await Manifest.parse(null, jsonld)).length )
+      await assert.equal(0, (await Manifest.parse(null, jsonld)).length)
       await assert.equal(0, (await Manifest.parse({}, jsonld)).length)
     })
 
@@ -23,7 +23,7 @@ describe('IIIF Manifest', () => {
       }, jsonld))
 
     })
-  })  
+  })
 
   describe('fixtures', () => {
     let bodleian, mdz

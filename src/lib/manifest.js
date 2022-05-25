@@ -19,27 +19,22 @@ async function expand(jsonld, data) {
   })
 }
 
-
-const LINK = /<a[^h]+href=['"]([^'"]+)['"][^>]*>([^<]*)<\/a>/ig 
-const HTML = /<\/?(span|div|a|p|b|i|strong|em|ol|ul|li)\b[^>]*>/ig
+const LINK = /<a[^h]+href=['"]([^'"]+)['"][^>]*>([^<]*)<\/a>/gi
+const HTML = /<\/?(span|div|a|p|b|i|strong|em|ol|ul|li)\b[^>]*>/gi
 
 function stripHTML(string) {
-  return string
-    .replace(LINK, '$2 [$1]')
-    .replace(HTML, '')
+  return string.replace(LINK, '$2 [$1]').replace(HTML, '')
 }
 
 function strip(value) {
   if (typeof value === 'string')
     value = stripHTML(value)
 
-  if (value['@value']) {
+  if (value['@value'])
     value['@value'] = stripHTML(value['@value'])
-  }
 
   return value
 }
-
 
 class Resource {
   constructor(data = {}) {
@@ -56,8 +51,9 @@ class Resource {
   }
 
   values(...props) {
-    return props.map(prop =>
-      this.data[prop]?.map(value => strip({ ...value })))
+    return props.map((prop) =>
+      this.data[prop]?.map((value) => strip({ ...value }))
+    )
   }
 
   get metadata() {
@@ -70,7 +66,8 @@ class Resource {
     let [title, description, date] = this.values(
       rdfs('label'),
       dc('description'),
-      sc('presentationDate'))
+      sc('presentationDate')
+    )
 
     if (title)
       props[dc('title')] = title
@@ -87,7 +84,8 @@ class Resource {
 
     let [rights, attribution] = this.values(
       dcterms('rights'),
-      sc('attributionLabel'))
+      sc('attributionLabel')
+    )
 
     if (rights)
       props[dc('rights')] = rights
@@ -110,10 +108,11 @@ class Resource {
   getLinkingProperties() {
     let props = {}
 
-    let [seeAlso, relation, isPartOf ] = this.values(
+    let [seeAlso, relation, isPartOf] = this.values(
       rdfs('seeAlso'),
       dcterms('relation'),
-      dcterms('isPartOf'))
+      dcterms('isPartOf')
+    )
 
     if (seeAlso)
       props[rdfs('seeAlso')] = seeAlso
@@ -130,7 +129,7 @@ class Resource {
 
     for (let m of this.metadata) {
       let id
-      let labels = m[rdfs('label')] 
+      let labels = m[rdfs('label')]
       let values = m[rdf('value')]?.map(strip)
 
       if (!values) continue
@@ -185,7 +184,7 @@ class Image extends Resource {
 
   get url() {
     let [body] = this.values(oa('hasBody'))[0]
-    let format  = body[dc('format')]?.[0]['@value']
+    let format = body[dc('format')]?.[0]['@value']
     let service = body[svcs('has_service')]?.[0]
 
     if (service)
@@ -197,19 +196,22 @@ class Image extends Resource {
 
 class Canvas extends Resource {
   get images() {
-    return (
-      this.data[sc('hasImageAnnotations')]?.[0]['@list'] || []
-    ).map(data => new Image(data))
+    return (this.data[sc('hasImageAnnotations')]?.[0]['@list'] || []).map(
+      (data) => new Image(data)
+    )
   }
 }
 
 class Manifest extends Resource {
   static async parse(data, jsonld) {
-    let expanded = await expand(jsonld, data)   
+    let expanded = await expand(jsonld, data)
 
-    return expanded.map(manifest => {
-      assert.equal(sc('Manifest'), manifest['@type']?.[0],
-        'not a IIIF Presentation API 2.0 manifest')
+    return expanded.map((manifest) => {
+      assert.equal(
+        sc('Manifest'),
+        manifest['@type']?.[0],
+        'not a IIIF Presentation API 2.0 manifest'
+      )
       return new this(manifest)
     })
   }
@@ -217,12 +219,14 @@ class Manifest extends Resource {
   get canvases() {
     // Currently returns only the primary sequence!
     return (
-      this.data[sc('hasSequences')]?.[0]['@list'][0][sc('hasCanvases')]?.[0]['@list'] || []
-    ).map(data => new Canvas(data))
+      this.data[sc('hasSequences')]?.[0]['@list'][0][sc('hasCanvases')]?.[0][
+      '@list'
+      ] || []
+    ).map((data) => new Canvas(data))
   }
 
   get images() {
-    return this.canvases.flatMap(c => c.images)
+    return this.canvases.flatMap((c) => c.images)
   }
 }
 
