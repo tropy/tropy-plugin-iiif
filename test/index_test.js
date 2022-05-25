@@ -1,5 +1,5 @@
 const assert = require('assert')
-const IIIFPlugin = require('../index.js')
+const IIIFPlugin = require('../src/plugin.js')
 
 describe('IIIF Plugin', () => {
   it('exists', () => {
