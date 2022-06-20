@@ -1,8 +1,8 @@
-const image = require('../contexts/image.v2.json')
-const physdim = require('../contexts/physdim.v1.json')
-const pv2 = require('../contexts/presentation.v2.json')
-const pv3 = require('../contexts/presentation.v3.json')
-const search = require('../contexts/search.v1.json')
+const image = require('./contexts/image.v2.json')
+const physdim = require('./contexts/physdim.v1.json')
+const pv2 = require('./contexts/presentation.v2.json')
+const pv3 = require('./contexts/presentation.v3.json')
+const search = require('./contexts/search.v1.json')
 
 const ns =
   (prefix) =>

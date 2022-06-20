@@ -1,5 +1,5 @@
 const { readFile } = require('fs/promises')
-const { Manifest } = require('./lib/manifest')
+const { Manifest } = require('./manifest')
 const LABELS = require('./labels.json')
 
 class IIIFPlugin {
@@ -25,7 +25,6 @@ class IIIFPlugin {
       try {
         let data = JSON.parse(await readFile(file))
         let [manifest] = await Manifest.parse(data, this.context.json)
-        console.log('x')
 
         payload.data.push(this.convert(manifest))
       } catch (e) {

@@ -1,6 +1,6 @@
 const assert = require('assert')
 const jsonld = require('jsonld')
-const { Canvas, Image, Manifest } = require('../src/lib/manifest')
+const { Canvas, Image, Manifest } = require('../src/manifest')
 
 describe('IIIF Manifest', () => {
 
