@@ -3,6 +3,7 @@
   "Artist": "http://purl.org/dc/elements/1.1/creator",
   "Cartographer": "http://purl.org/dc/elements/1.1/creator",
   "Author": "http://purl.org/dc/elements/1.1/creator",
+  "Author(s)": "http://purl.org/dc/elements/1.1/creator",
 
   "Etcher": "http://purl.org/dc/elements/1.1/contributor",
   "Other creators": "http://purl.org/dc/elements/1.1/contributor",
@@ -22,6 +23,7 @@
   "Sitter": "http://xmlns.com/foaf/0.1/depicted",
 
   "Shelfmark": "http://id.loc.gov/ontologies/bibframe/shelfmark",
+  "Classmark": "http://id.loc.gov/ontologies/bibframe/shelfmark",
 
   "Catalogue Identifier": "http://purl.org/dc/elements/1.1/identifier",
   "Other Identifier": "http://purl.org/dc/elements/1.1/identifier",
@@ -34,6 +36,7 @@
 
   "Date": "http://purl.org/dc/elements/1.1/date",
   "Date Statement": "http://purl.org/dc/elements/1.1/date",
+  "Date of Creation": "http://purl.org/dc/elements/1.1/date",
 
   "Published": "http://purl.org/dc/terms/issued",
   "Period": "http://purl.org/dc/terms/temporal",
@@ -43,6 +46,7 @@
   "Extent": "http://purl.org/dc/terms/extent",
 
   "Dimensions": "http://purl.org/dc/terms/format",
+  "Format": "http://purl.org/dc/terms/format",
 
   "Language": "http://purl.org/dc/elements/1.1/language",
 
@@ -71,6 +75,7 @@
   "Classification": "http://purl.org/dc/elements/1.1/type",
 
   "Subject": "http://purl.org/dc/elements/1.1/subject",
+  "Subject(s)": "http://purl.org/dc/elements/1.1/subject",
 
   "Medium": "http://purl.org/dc/terms/medium"
 }
