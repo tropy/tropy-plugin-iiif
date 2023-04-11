@@ -8,8 +8,8 @@
   "scripts": {
     "test": "electron-mocha --renderer test",
     "lint": "eslint --color src test",
-    "build": "rollup -c rollup.config.js",
-    "watch": "rollup -c -w rollup.config.js"
+    "build": "rollup -c rollup.config.mjs",
+    "watch": "rollup -c rollup.config.mjs -w"
   },
   "repository": {
     "type": "git",
@@ -47,14 +47,14 @@
     }
   ],
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^22.0.0",
-    "@rollup/plugin-json": "^4.1.0",
-    "@rollup/plugin-node-resolve": "^13.3.0",
-    "electron": "^18.2.2",
+    "@rollup/plugin-commonjs": "^24.0.1",
+    "@rollup/plugin-json": "^6.0.0",
+    "@rollup/plugin-node-resolve": "^15.0.2",
+    "electron": "^24.0.0",
     "electron-mocha": "^11.0.2",
     "eslint": "^8.14.0",
     "jsonld": "^5.2.0",
-    "rollup": "^2.72.1",
-    "rollup-plugin-license": "^2.7.0"
+    "rollup": "^3.20.2",
+    "rollup-plugin-license": "^3.0.1"
   }
 }
