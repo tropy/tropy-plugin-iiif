@@ -26,31 +26,40 @@ describe('IIIF Manifest', () => {
   })
 
   describe('fixtures', () => {
-    let bodleian, mdz
+    let bodleian, mdz, loc
 
     before(async () => {
       bodleian = (await Manifest.parse(F.json('bodleian'), jsonld))[0]
       mdz = (await Manifest.parse(F.json('mdz'), jsonld))[0]
+      loc = (await Manifest.parse(F.json('loc'), jsonld))[0]
     })
 
     it('are manifest instances', () => {
       assert.ok(bodleian instanceof Manifest)
       assert.ok(mdz instanceof Manifest)
+      assert.ok(loc instanceof Manifest)
     })
 
     it('have core props', () => {
       assert.ok('http://purl.org/dc/elements/1.1/title' in bodleian.props)
       assert.ok('http://purl.org/dc/elements/1.1/rights' in mdz.props)
+      assert.ok('http://purl.org/dc/elements/1.1/rights' in loc.props)
+    })
+
+    it('skips blank props', () => {
+      assert.ok(!('http://www.w3.org/2000/01/rdf-schema#seeAlso' in loc.props))
     })
 
     it('have canvases', () => {
       assert.ok(bodleian.canvases.every(c => c instanceof Canvas))
       assert.ok(mdz.canvases.every(c => c instanceof Canvas))
+      assert.ok(loc.canvases.every(c => c instanceof Canvas))
     })
 
     it('have images', () => {
       assert.ok(bodleian.images.map(i => i instanceof Image))
       assert.ok(mdz.images.every(i => i instanceof Image))
+      assert.ok(loc.images.every(i => i instanceof Image))
     })
 
     it('prop values are stripped of html', () => {

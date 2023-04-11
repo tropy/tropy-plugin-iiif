@@ -36,6 +36,10 @@ function strip(value) {
   return value
 }
 
+function blank(value) {
+  return value == null || value.length === 0
+}
+
 class Resource {
   constructor(data = {}) {
     this.data = data
@@ -69,11 +73,11 @@ class Resource {
       sc('presentationDate')
     )
 
-    if (title)
+    if (!blank(title))
       props[dc('title')] = title
-    if (description)
+    if (!blank(description))
       props[dc('description')] = description
-    if (date)
+    if (!blank(date))
       props[dc('date')] = date
 
     return props
@@ -87,9 +91,9 @@ class Resource {
       sc('attributionLabel')
     )
 
-    if (rights)
+    if (!blank(rights))
       props[dc('rights')] = rights
-    if (attribution)
+    if (!blank(attribution))
       props[rights ? dcterms('rightsHolder') : dc('rights')] = attribution
 
     return props
@@ -99,7 +103,7 @@ class Resource {
     let props = {}
     let identifier = this.data['@id']
 
-    if (identifier)
+    if (!blank(identifier))
       props[dc('identifier')] = identifier
 
     return props
@@ -114,11 +118,11 @@ class Resource {
       dcterms('isPartOf')
     )
 
-    if (seeAlso)
+    if (!blank(seeAlso))
       props[rdfs('seeAlso')] = seeAlso
-    if (relation)
+    if (!blank(relation))
       props[dcterms('relation')] = relation
-    if (isPartOf)
+    if (!blank(isPartOf))
       props[dcterms('isPartOf')] = isPartOf
 
     return props
