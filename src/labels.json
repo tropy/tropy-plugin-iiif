@@ -5,6 +5,7 @@
   "Author": "http://purl.org/dc/elements/1.1/creator",
   "Author(s)": "http://purl.org/dc/elements/1.1/creator",
 
+  "Contributor": "http://purl.org/dc/elements/1.1/contributor",
   "Etcher": "http://purl.org/dc/elements/1.1/contributor",
   "Other creators": "http://purl.org/dc/elements/1.1/contributor",
   "People": "http://purl.org/dc/elements/1.1/contributor",
