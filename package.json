@@ -56,5 +56,8 @@
     "jsonld": "^5.2.0",
     "rollup": "^3.20.2",
     "rollup-plugin-license": "^3.0.1"
+  },
+  "dependencies": {
+    "iiif-builder": "^2.0.0"
   }
 }
