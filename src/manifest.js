@@ -191,7 +191,7 @@ class Image extends Resource {
     let format = body[dc('format')]?.[0]['@value']
     let service = body[svcs('has_service')]?.[0]
     return service ?
-      (this.data.isDowngraded ?
+      (process.env.IS_DOWNGRADED === 'true' ?
         `${service['@id']}/full/max/0/default${Image.ext(format)}` :
         `${service['@id']}/full/full/0/default${Image.ext(format)}`) :
         body['@id']
@@ -201,10 +201,7 @@ class Image extends Resource {
 class Canvas extends Resource {
   get images() {
     return (this.data[sc('hasImageAnnotations')]?.[0]['@list'] || []).map(
-      (data) => {
-        const extendedData = { ...data, isDowngraded: this.data.isDowngraded }
-        return new Image(extendedData)
-      }
+      (data) => new Image(data)
     )
   }
 }
@@ -212,7 +209,6 @@ class Canvas extends Resource {
 class Manifest extends Resource {
   static async parse(data, jsonld) {
     let expanded = await expand(jsonld, data)
-    expanded[0]['isDowngraded'] = data['isDowngraded']
 
     return expanded.map((manifest) => {
       assert.equal(
@@ -231,10 +227,7 @@ class Manifest extends Resource {
       '@list'
       ] || []
     ).map(
-      (data) => {
-        const extendedData = { ...data, isDowngraded: this.data.isDowngraded }
-        return new Canvas(extendedData)
-      }
+      (data) => new Canvas(data)
     )
   }
 

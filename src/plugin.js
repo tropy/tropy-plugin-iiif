@@ -29,7 +29,7 @@ class IIIFPlugin {
           const builder = new IIIFBuilder()
           await builder.vault.loadManifest(data['id'], data)
           data = builder.toPresentation2({ id: data['id'], type: 'Manifest' })
-          data['isDowngraded'] = true
+          process.env.IS_DOWNGRADED = 'true'
         }
         let [manifest] = await Manifest.parse(data, this.context.json)
 
