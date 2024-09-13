@@ -1,5 +1,5 @@
 const assert = require('assert')
-const { CONTEXTS, dc, dcterms, oa, rdf, rdfs, sc, svcs } = require('./ns')
+const { CONTEXTS, as, dc, dcterms, oa, rdf, rdfs, iiif_prezi, schema } = require('./ns')
 
 async function expand(jsonld, data) {
   return jsonld.expand(data, {
@@ -61,7 +61,7 @@ class Resource {
   }
 
   get metadata() {
-    return this.data[sc('metadataLabels')]?.[0]['@list'] || []
+    return this.data[iiif_prezi('metadataEntries')]?.[0]['@list'] || []
   }
 
   getDescriptiveProperties() {
@@ -70,7 +70,7 @@ class Resource {
     let [title, description, date] = this.values(
       rdfs('label'),
       dc('description'),
-      sc('presentationDate')
+      iiif_prezi('navigationDate')
     )
 
     if (!blank(title))
@@ -88,7 +88,7 @@ class Resource {
 
     let [rights, attribution] = this.values(
       dcterms('rights'),
-      sc('attributionLabel')
+      iiif_prezi('requiredStatement')
     )
 
     if (!blank(rights))
@@ -189,18 +189,19 @@ class Image extends Resource {
   get url() {
     let [body] = this.values(oa('hasBody'))[0]
     let format = body[dc('format')]?.[0]['@value']
-    let service = body[svcs('has_service')]?.[0]
+    let service = body[schema('potentialAction')]?.[0]
     return service ?
-      (process.env.IS_DOWNGRADED === 'true' ?
-        `${service['@id']}/full/max/0/default${Image.ext(format)}` :
-        `${service['@id']}/full/full/0/default${Image.ext(format)}`) :
-        body['@id']
+      (process.env.IS_UPGRADED === 'true' ?
+      `${service['@id']}/full/full/0/default${Image.ext(format)}` :
+      `${service['@id']}/full/max/0/default${Image.ext(format)}`) :
+      body['@id']
   }
 }
 
 class Canvas extends Resource {
   get images() {
-    return (this.data[sc('hasImageAnnotations')]?.[0]['@list'] || []).map(
+    return (this.data[
+      as('items')]?.[0]['@list'][0][as('items')]?.[0]['@list'] || []).map(
       (data) => new Image(data)
     )
   }
@@ -209,12 +210,11 @@ class Canvas extends Resource {
 class Manifest extends Resource {
   static async parse(data, jsonld) {
     let expanded = await expand(jsonld, data)
-
     return expanded.map((manifest) => {
       assert.equal(
-        sc('Manifest'),
+        iiif_prezi('Manifest'),
         manifest['@type']?.[0],
-        'not a IIIF Presentation API 2.0 manifest'
+        'not a IIIF Presentation API 3.0 manifest'
       )
       return new this(manifest)
     })
@@ -223,9 +223,7 @@ class Manifest extends Resource {
   get canvases() {
     // Currently returns only the primary sequence!
     return (
-      this.data[sc('hasSequences')]?.[0]['@list'][0][sc('hasCanvases')]?.[0][
-      '@list'
-      ] || []
+      this.data[as('items')]?.[0]['@list'] || []
     ).map(
       (data) => new Canvas(data)
     )
