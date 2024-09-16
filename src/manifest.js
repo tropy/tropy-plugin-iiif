@@ -233,7 +233,7 @@ class Manifest extends Resource {
     let isUpgraded = false
 
     if (data?.['@context'] === V2) {
-      data = upgrade(data)
+      data = await upgrade(data)
       isUpgraded = true
     }
 
