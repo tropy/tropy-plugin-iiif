@@ -1,5 +1,4 @@
 const { readFile } = require('fs/promises')
-const { IIIFBuilder } = require('iiif-builder')
 const { Manifest } = require('./manifest')
 const LABELS = require('./labels.json')
 
@@ -25,17 +24,7 @@ class IIIFPlugin {
     for (let file of files) {
       try {
         let data = JSON.parse(await readFile(file))
-        let isUpgraded = false
-        if (data['@context'] === 'http://iiif.io/api/presentation/2/context.json') {
-          const builder = new IIIFBuilder()
-          await builder.vault.loadManifest(data['@id'], data)
-          data = builder.toPresentation3({ id: data['@id'], type: 'Manifest' })
-          isUpgraded = true
-        }
-        let [manifest] = await Manifest.parse(
-          data, this.context.json, isUpgraded
-        )
-
+        let [manifest] = await Manifest.parse(data, this.context.json)
         payload.data.push(this.convert(manifest))
       } catch (e) {
         this.context.logger.warn(

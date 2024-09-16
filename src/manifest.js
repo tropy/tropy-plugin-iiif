@@ -1,5 +1,16 @@
 const assert = require('assert')
-const { CONTEXTS, as, dc, dcterms, oa, rdf, rdfs, iiif_prezi, schema } = require('./ns')
+const { IIIFBuilder } = require('iiif-builder')
+const {
+  CONTEXTS,
+  as,
+  dc,
+  dcterms,
+  oa,
+  rdf,
+  rdfs,
+  iiif_prezi,
+  schema
+} = require('./ns')
 
 async function expand(jsonld, data) {
   return jsonld.expand(data, {
@@ -18,6 +29,15 @@ async function expand(jsonld, data) {
     }
   })
 }
+
+async function upgrade(data) {
+  let builder = new IIIFBuilder()
+  await builder.vault.loadManifest(data['@id'], data)
+  return builder.toPresentation3({ id: data['@id'], type: 'Manifest' })
+}
+
+
+const V2 = 'http://iiif.io/api/presentation/2/context.json'
 
 const LINK = /<a[^h]+href=['"]([^'"]+)['"][^>]*>([^<]*)<\/a>/gi
 const HTML = /<\/?(span|div|a|p|b|i|strong|em|ol|ul|li)\b[^>]*>/gi
@@ -209,8 +229,16 @@ class Canvas extends Resource {
 }
 
 class Manifest extends Resource {
-  static async parse(data, jsonld, isUpgraded) {
+  static async parse(data, jsonld) {
+    let isUpgraded = false
+
+    if (data?.['@context'] === V2) {
+      data = upgrade(data)
+      isUpgraded = true
+    }
+
     let expanded = await expand(jsonld, data)
+
     return expanded.map((manifest) => {
       assert.equal(
         iiif_prezi('Manifest'),

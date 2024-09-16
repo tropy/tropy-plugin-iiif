@@ -5,10 +5,10 @@ const { Canvas, Image, Manifest } = require('../src/manifest')
 describe('IIIF Manifest', () => {
 
   describe('.parse()', () => {
-    it('accepts v2 manifests', async () => {
+    it('accepts v3 manifests', async () => {
       await assert.doesNotReject(
         Manifest.parse({
-          '@type': 'http://iiif.io/api/presentation/2#Manifest'
+          '@type': 'http://iiif.io/api/presentation/3#Manifest'
         }, jsonld))
     })
 
@@ -17,12 +17,11 @@ describe('IIIF Manifest', () => {
       await assert.equal(0, (await Manifest.parse({}, jsonld)).length)
     })
 
-    // it('throws for unsupported types', async () => {
-    //   await assert.rejects(Manifest.parse({
-    //     '@type': 'http://iiif.io/api/presentation/3#Manifest'
-    //   }, jsonld))
-
-    // })
+    it('throws for unsupported types', async () => {
+      await assert.rejects(Manifest.parse({
+        '@type': 'http://iiif.io/api/presentation/4#Manifest'
+      }, jsonld))
+    })
   })
 
   describe('fixtures', () => {
