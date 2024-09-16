@@ -25,14 +25,16 @@ class IIIFPlugin {
     for (let file of files) {
       try {
         let data = JSON.parse(await readFile(file))
-        process.env.IS_UPGRADED = 'false'
+        let isUpgraded = false
         if (data['@context'] === 'http://iiif.io/api/presentation/2/context.json') {
           const builder = new IIIFBuilder()
           await builder.vault.loadManifest(data['@id'], data)
           data = builder.toPresentation3({ id: data['@id'], type: 'Manifest' })
-          process.env.IS_UPGRADED = 'true'
+          isUpgraded = true
         }
-        let [manifest] = await Manifest.parse(data, this.context.json)
+        let [manifest] = await Manifest.parse(
+          data, this.context.json, isUpgraded
+        )
 
         payload.data.push(this.convert(manifest))
       } catch (e) {

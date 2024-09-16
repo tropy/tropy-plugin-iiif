@@ -41,8 +41,9 @@ function blank(value) {
 }
 
 class Resource {
-  constructor(data = {}) {
+  constructor(data = {}, isUpgraded = false) {
     this.data = data
+    this.isUpgraded = isUpgraded
   }
 
   get props() {
@@ -191,7 +192,7 @@ class Image extends Resource {
     let format = body[dc('format')]?.[0]['@value']
     let service = body[schema('potentialAction')]?.[0]
     return service ?
-      (process.env.IS_UPGRADED === 'true' ?
+      (this.isUpgraded ?
       `${service['@id']}/full/full/0/default${Image.ext(format)}` :
       `${service['@id']}/full/max/0/default${Image.ext(format)}`) :
       body['@id']
@@ -202,13 +203,13 @@ class Canvas extends Resource {
   get images() {
     return (this.data[
       as('items')]?.[0]['@list'][0][as('items')]?.[0]['@list'] || []).map(
-      (data) => new Image(data)
+      (data) => new Image(data, this.isUpgraded)
     )
   }
 }
 
 class Manifest extends Resource {
-  static async parse(data, jsonld) {
+  static async parse(data, jsonld, isUpgraded) {
     let expanded = await expand(jsonld, data)
     return expanded.map((manifest) => {
       assert.equal(
@@ -216,7 +217,7 @@ class Manifest extends Resource {
         manifest['@type']?.[0],
         'not a IIIF Presentation API 3.0 manifest'
       )
-      return new this(manifest)
+      return new this(manifest, isUpgraded)
     })
   }
 
@@ -225,7 +226,7 @@ class Manifest extends Resource {
     return (
       this.data[as('items')]?.[0]['@list'] || []
     ).map(
-      (data) => new Canvas(data)
+      (data) => new Canvas(data, this.isUpgraded)
     )
   }
 
