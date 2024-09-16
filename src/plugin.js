@@ -25,7 +25,6 @@ class IIIFPlugin {
       try {
         let data = JSON.parse(await readFile(file))
         let [manifest] = await Manifest.parse(data, this.context.json)
-
         payload.data.push(this.convert(manifest))
       } catch (e) {
         this.context.logger.warn(

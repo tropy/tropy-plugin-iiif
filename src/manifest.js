@@ -1,5 +1,16 @@
 const assert = require('assert')
-const { CONTEXTS, dc, dcterms, oa, rdf, rdfs, sc, svcs } = require('./ns')
+const { IIIFBuilder } = require('iiif-builder')
+const {
+  CONTEXTS,
+  as,
+  dc,
+  dcterms,
+  oa,
+  rdf,
+  rdfs,
+  iiif_prezi,
+  schema
+} = require('./ns')
 
 async function expand(jsonld, data) {
   return jsonld.expand(data, {
@@ -18,6 +29,15 @@ async function expand(jsonld, data) {
     }
   })
 }
+
+async function upgrade(data) {
+  let builder = new IIIFBuilder()
+  await builder.vault.loadManifest(data['@id'], data)
+  return builder.toPresentation3({ id: data['@id'], type: 'Manifest' })
+}
+
+
+const V2 = 'http://iiif.io/api/presentation/2/context.json'
 
 const LINK = /<a[^h]+href=['"]([^'"]+)['"][^>]*>([^<]*)<\/a>/gi
 const HTML = /<\/?(span|div|a|p|b|i|strong|em|ol|ul|li)\b[^>]*>/gi
@@ -41,8 +61,9 @@ function blank(value) {
 }
 
 class Resource {
-  constructor(data = {}) {
+  constructor(data = {}, isUpgraded = false) {
     this.data = data
+    this.isUpgraded = isUpgraded
   }
 
   get props() {
@@ -61,7 +82,7 @@ class Resource {
   }
 
   get metadata() {
-    return this.data[sc('metadataLabels')]?.[0]['@list'] || []
+    return this.data[iiif_prezi('metadataEntries')]?.[0]['@list'] || []
   }
 
   getDescriptiveProperties() {
@@ -70,7 +91,7 @@ class Resource {
     let [title, description, date] = this.values(
       rdfs('label'),
       dc('description'),
-      sc('presentationDate')
+      iiif_prezi('navigationDate')
     )
 
     if (!blank(title))
@@ -88,7 +109,7 @@ class Resource {
 
     let [rights, attribution] = this.values(
       dcterms('rights'),
-      sc('attributionLabel')
+      iiif_prezi('requiredStatement')
     )
 
     if (!blank(rights))
@@ -189,44 +210,52 @@ class Image extends Resource {
   get url() {
     let [body] = this.values(oa('hasBody'))[0]
     let format = body[dc('format')]?.[0]['@value']
-    let service = body[svcs('has_service')]?.[0]
-
-    if (service)
-      return `${service['@id']}/full/full/0/default${Image.ext(format)}`
-    else
-      return body['@id']
+    let service = body[schema('potentialAction')]?.[0]
+    return service ?
+      (this.isUpgraded ?
+      `${service['@id']}/full/full/0/default${Image.ext(format)}` :
+      `${service['@id']}/full/max/0/default${Image.ext(format)}`) :
+      body['@id']
   }
 }
 
 class Canvas extends Resource {
   get images() {
-    return (this.data[sc('hasImageAnnotations')]?.[0]['@list'] || []).map(
-      (data) => new Image(data)
+    return (this.data[
+      as('items')]?.[0]['@list'][0][as('items')]?.[0]['@list'] || []).map(
+      (data) => new Image(data, this.isUpgraded)
     )
   }
 }
 
 class Manifest extends Resource {
   static async parse(data, jsonld) {
+    let isUpgraded = false
+
+    if (data?.['@context'] === V2) {
+      data = await upgrade(data)
+      isUpgraded = true
+    }
+
     let expanded = await expand(jsonld, data)
 
     return expanded.map((manifest) => {
       assert.equal(
-        sc('Manifest'),
+        iiif_prezi('Manifest'),
         manifest['@type']?.[0],
-        'not a IIIF Presentation API 2.0 manifest'
+        'not a IIIF Presentation API 3.0 manifest'
       )
-      return new this(manifest)
+      return new this(manifest, isUpgraded)
     })
   }
 
   get canvases() {
     // Currently returns only the primary sequence!
     return (
-      this.data[sc('hasSequences')]?.[0]['@list'][0][sc('hasCanvases')]?.[0][
-      '@list'
-      ] || []
-    ).map((data) => new Canvas(data))
+      this.data[as('items')]?.[0]['@list'] || []
+    ).map(
+      (data) => new Canvas(data, this.isUpgraded)
+    )
   }
 
   get images() {
