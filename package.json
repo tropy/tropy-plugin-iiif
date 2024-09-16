@@ -50,10 +50,10 @@
     "@rollup/plugin-commonjs": "^24.0.1",
     "@rollup/plugin-json": "^6.0.0",
     "@rollup/plugin-node-resolve": "^15.0.2",
-    "electron": "^24.0.0",
-    "electron-mocha": "^11.0.2",
+    "electron": "^32.1.0",
+    "electron-mocha": "^13.0.0",
     "eslint": "^8.14.0",
-    "jsonld": "^5.2.0",
+    "jsonld": "^8.3.2",
     "rollup": "^3.20.2",
     "rollup-plugin-license": "^3.0.1"
   },
