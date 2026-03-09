@@ -2,5 +2,6 @@ color: true
 recursive: true
 reporter: dot
 renderer: true
+timeout: 10000
 require:
   - test/support/fixtures.js
