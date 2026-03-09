@@ -107,10 +107,10 @@ class Resource {
   getRightsAndLicensingProperties() {
     let props = {}
 
-    let [rights, attribution] = this.values(
-      dcterms('rights'),
-      iiif_prezi('requiredStatement')
-    )
+    let [rights] = this.values(dcterms('rights'))
+
+    let attribution = this.data[iiif_prezi('requiredStatement')]
+      ?.flatMap(s => s[rdf('value')]?.map(v => strip({ ...v })) || [])
 
     if (!blank(rights))
       props[dc('rights')] = rights
