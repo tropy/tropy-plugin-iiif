@@ -23,7 +23,7 @@ export default {
       thirdParty: {
         includePrivate: true,
         output: {
-          file: 'third-party-licenses.txt'
+          file: './third-party-licenses.txt'
         }
       }
     })
