@@ -47,14 +47,16 @@
     }
   ],
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^24.0.1",
+    "@eslint/js": "^10.0.1",
+    "@rollup/plugin-commonjs": "^29.0.2",
     "@rollup/plugin-json": "^6.0.0",
-    "@rollup/plugin-node-resolve": "^15.0.2",
-    "electron": "^32.1.0",
+    "@rollup/plugin-node-resolve": "^16.0.3",
+    "electron": "^41.0.0",
     "electron-mocha": "^13.0.0",
-    "eslint": "^8.14.0",
-    "jsonld": "^8.3.2",
-    "rollup": "^3.20.2",
+    "eslint": "^10.0.3",
+    "globals": "^17.4.0",
+    "jsonld": "^9.0.0",
+    "rollup": "^4.59.0",
     "rollup-plugin-license": "^3.0.1"
   },
   "dependencies": {
