@@ -14,7 +14,7 @@ const {
 
 async function expand(jsonld, data) {
   return jsonld.expand(data, {
-    documentLoader: (url, options) => {
+    documentLoader: (url) => {
       if (url in CONTEXTS) {
         return {
           contextUrl: null,
