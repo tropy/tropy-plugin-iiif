@@ -24,7 +24,7 @@ class IIIFPlugin {
     for (let file of files) {
       try {
         let data = JSON.parse(await readFile(file))
-        let [manifest] = await Manifest.parse(data, this.context.json)
+        let [manifest] = await Manifest.parse(data, this.context.json, this.options)
         payload.data.push(this.convert(manifest))
       } catch (e) {
         this.context.logger.warn(
@@ -91,7 +91,8 @@ class IIIFPlugin {
 
   static defaults = {
     itemTemplate: '',
-    photoTemplate: ''
+    photoTemplate: '',
+    yearOnly: false
   }
 }
 

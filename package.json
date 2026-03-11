@@ -44,6 +44,12 @@
       "placeholder": "Select Template (Optional)",
       "type": "template",
       "hint": "The template determines how to import the IIIF manifest metadata section"
+    },
+    {
+      "field": "yearOnly",
+      "label": "Identify year only dates",
+      "type": "bool",
+      "hint": "Strip month, day and time from dates that match YYYY-01-01T00:00:00 (likely year-only values)"
     }
   ],
   "devDependencies": {

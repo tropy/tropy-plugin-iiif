@@ -64,10 +64,23 @@ function blank(value) {
   return value == null || value.length === 0
 }
 
+const YEAR_ONLY = /^\d{4}-01-01T00:00:00/
+
+function stripDate(value) {
+  if (typeof value === 'string' && YEAR_ONLY.test(value))
+    return value.slice(0, 4)
+
+  if (value?.['@value'] && YEAR_ONLY.test(value['@value']))
+    return { ...value, '@value': value['@value'].slice(0, 4) }
+
+  return value
+}
+
 class Resource {
-  constructor(data = {}, isUpgraded = false) {
+  constructor(data = {}, isUpgraded = false, options = {}) {
     this.data = data
     this.isUpgraded = isUpgraded
+    this.options = options
   }
 
   get props() {
@@ -103,7 +116,7 @@ class Resource {
     if (!blank(description))
       props[dc('description')] = description
     if (!blank(date))
-      props[dc('date')] = date
+      props[dc('date')] = this.options.yearOnly ? date.map(stripDate) : date
 
     return props
   }
@@ -227,13 +240,13 @@ class Canvas extends Resource {
   get images() {
     return (this.data[
       as('items')]?.[0]['@list'][0][as('items')]?.[0]['@list'] || []).map(
-      (data) => new Image(data, this.isUpgraded)
+      (data) => new Image(data, this.isUpgraded, this.options)
     )
   }
 }
 
 class Manifest extends Resource {
-  static async parse(data, jsonld) {
+  static async parse(data, jsonld, options = {}) {
     let isUpgraded = false
 
     if (data?.['@context'] === V2) {
@@ -249,7 +262,7 @@ class Manifest extends Resource {
         manifest['@type']?.[0],
         'not a IIIF Presentation API 3.0 manifest'
       )
-      return new this(manifest, isUpgraded)
+      return new this(manifest, isUpgraded, options)
     })
   }
 
@@ -258,7 +271,7 @@ class Manifest extends Resource {
     return (
       this.data[as('items')]?.[0]['@list'] || []
     ).map(
-      (data) => new Canvas(data, this.isUpgraded)
+      (data) => new Canvas(data, this.isUpgraded, this.options)
     )
   }
 
