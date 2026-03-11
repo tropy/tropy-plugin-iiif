@@ -23,9 +23,13 @@ async function expand(jsonld, data) {
         }
       }
 
-      console.warn('fetching uncached context', url)
-
-      return jsonld.documentLoader(url, options)
+      return fetch(url)
+        .then(res => res.json())
+        .then(document => ({
+          contextUrl: null,
+          document,
+          documentUrl: url
+        }))
     }
   })
 }
